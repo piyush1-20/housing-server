@@ -40,6 +40,7 @@ namespace API.Controllers
             }
 
             var loginRes = new LoginResDto();
+            loginRes.Id = user.Id;
             loginRes.UserEmail = user.UserEmail;
             loginRes.Token = CreateJWT(user);
             return Ok(loginRes);
@@ -71,6 +72,11 @@ namespace API.Controllers
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString())
             };
 
+            //foreach (var claim in claims)
+            //{
+            //    Console.Write("heloo ");
+            //    Console.Write($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+            //}
             var signCredential = new SigningCredentials(
                 key, SecurityAlgorithms.HmacSha256);
 
@@ -78,7 +84,7 @@ namespace API.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                //Expires = DateTime.UtcNow.AddMinutes(1),
                 SigningCredentials = signCredential
             };
 

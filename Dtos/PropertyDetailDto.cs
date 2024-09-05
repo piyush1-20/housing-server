@@ -14,8 +14,9 @@ namespace API.Dtos
         public int Security { get; set; }
         public bool Gated { get; set; }
         public int Maintenance { get; set; }
-        
         public int Age { get; set; }
         public string Description { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
+        public int PostedBy { get; set; }
     }
 }

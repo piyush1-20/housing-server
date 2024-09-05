@@ -3,6 +3,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using API.Middlewares;
+using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -10,6 +11,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using System.Text;
+using dotenv.net;
+using CloudinaryDotNet;
+DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+var cloudinaryUrl = Environment.GetEnvironmentVariable("CLOUDINARY_URL");
+Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
+
+cloudinary.Api.Secure = true;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +38,10 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 //adding newtonsoftjson to use patch 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
+//mapping 
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

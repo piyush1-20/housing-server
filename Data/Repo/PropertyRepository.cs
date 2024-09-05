@@ -14,7 +14,7 @@ namespace API.Data.Repo
         }
         public void AddProperty(Property property)
         {
-            throw new NotImplementedException();
+            dc.Properties.Add(property);
         }
 
         public void DeleteProperty(int Id)
@@ -28,6 +28,7 @@ namespace API.Data.Repo
                 .Include(p=>p.PropertyType)
                 .Include(p=>p.City)
                 .Include(p=>p.FurnishingType)
+                .Include(p=>p.Photos)
                 .Where(p => p.SellRent == sellRent)
                 .ToListAsync();
             return properties;
@@ -39,7 +40,18 @@ namespace API.Data.Repo
                 .Include(p => p.PropertyType)
                 .Include(p => p.City)
                 .Include(p => p.FurnishingType)
+                .Include(p => p.Photos)
                 .Where(p=>p.Id == id)
+                .FirstAsync();
+            return properties;
+        }
+
+        public async Task<Property> GetPropertyById(int id)
+        {
+            var properties = await dc.Properties
+                .Include(p=>p.User)
+                .Include(p => p.Photos)
+                .Where(p => p.Id == id)
                 .FirstAsync();
             return properties;
         }

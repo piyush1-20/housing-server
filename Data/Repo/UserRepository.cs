@@ -48,7 +48,6 @@ namespace API.Data.Repo
 
         public void Register(string userEmail, string password)
         {
-            dc.Dispose();
             byte[] passwordHash, passwordKey;
             using(var hmac = new HMACSHA512())
             {

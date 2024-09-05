@@ -1,13 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers",
-    "\\Data",
+    "\\bin",
     "\\Errors",
     "\\Middlewares",
     "\\Models",
     "\\Properties"
   ],
-  "SelectedNode": "\\API.sln",
   "PreviewInSolutionExplorer": false
 }
